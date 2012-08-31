@@ -1,0 +1,45 @@
+{
+  "name": "grunt-targethtml",
+  "description": "Produces html-output depending on grunt release version",
+  "version": "0.1.0",
+  "homepage": "https://github.com/changer/grunt-targethtml",
+  "author": {
+    "name": "Ruben Stolk",
+    "email": "ruben.stolk@changer.nl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/changer/grunt-targethtml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/changer/grunt-targethtml/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/changer/grunt-targethtml/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
+  "bin": {
+    "grunt-targethtml": "bin/grunt-targethtml"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "grunt": "~0.3.9"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.9"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "readme": "# grunt-targethtml\n\nProduces html-output depending on grunt target\n\n## Getting Started\nInstall this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-targethtml`\n\n## Release History\n* 8/31/12 - v0.1.0 - Initial release.\n\n## License\nCopyright (c) 2012 Ruben Stolk\nLicensed under the MIT license.\n",
+  "_id": "grunt-targethtml@0.1.0",
+  "_from": "grunt-targethtml@latest"
+}
