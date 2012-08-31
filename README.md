@@ -21,13 +21,17 @@ Configure which files to be outputted in your `initConfig`:
 grunt.initConfig({
   // ... other configs
 
+  // produce html
   targethtml: {
-    file: "public/index.html",
-    output: {
-      debug: "public/dist/debug/index.html",
-      release: "public/dist/release/index.html"
+    debug: {
+      input: 'public/index.html',
+      output: 'public/dist/debug/index.html'
+    },
+    release: {
+      input: 'public/index.html',
+      output: 'public/dist/release/index.html'
     }
-  }
+  },
 
   // ... other configs
 });
