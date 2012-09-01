@@ -44,6 +44,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 * 8/31/12 - v0.1.0 - Initial release.
+* 9/1/12 - v0.1.1 - Fixed naming issues
 
 ## License
 Copyright (c) 2012 Ruben Stolk
