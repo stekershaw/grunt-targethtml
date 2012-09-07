@@ -28,9 +28,9 @@ module.exports = function(grunt) {
         var file = grunt.file;
         var contents = file.read(data.input);
         if(contents) {
-            contents = contents.replace(new RegExp('<!--\\[if target ' + target + '\\]>(<!-->)?([\\s\\S]*?)(<!--)?<!\\[endif\\]-->', 'g'), '$2');
-            contents = contents.replace(new RegExp('^[\\s\\t]+<!--\\[if target .*?\\]>(<!-->)?([\\s\\S]*?)(<!--)?<!\\[endif\\]-->[\r\n]*', 'gm'), '');
-            contents = contents.replace(new RegExp('<!--\\[if target .*?\\]>(<!-->)?([\\s\\S]*?)(<!--)?<!\\[endif\\]-->[\r\n]*', 'g'), '');
+            contents = contents.replace(new RegExp('<!--[\\[\\(]if target ' + target + '[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->', 'g'), '$2');
+            contents = contents.replace(new RegExp('^[\\s\\t]+<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'gm'), '');
+            contents = contents.replace(new RegExp('<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'g'), '');
             file.write(data.output, contents);
             console.log('Created ' + data.output, target);
         }
