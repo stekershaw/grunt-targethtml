@@ -59,8 +59,6 @@ grunt.initConfig({
 });
 ```
 
-There's no need to specify `assets/js/**/*` since the task will automatically recursively delete whatever is in that path.
-
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
@@ -68,6 +66,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 8/31/12 - v0.1.0 - Initial release.
 * 9/1/12 - v0.1.1 - Fixed naming issues
 * 9/7/12 - v0.1.2 - Accept round braces in if statements for IE support
+* 10/14/12 - v0.1.3 - Adjustments towards grunt file api
 
 ## License
 Copyright (c) 2012 Ruben Stolk
