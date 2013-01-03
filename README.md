@@ -1,4 +1,4 @@
-# grunt-targethtml
+# grunt-targethtml [![Build Status](https://travis-ci.org/srigi/grunt-targethtml.png)](https://travis-ci.org/srigi/grunt-targethtml)
 
 Produces html-output depending on grunt target
 
