@@ -6,6 +6,8 @@
  * Licensed under the MIT license.
  */
 
+'use strict';
+
 module.exports = function(grunt) {
 
     // Please see the grunt documentation for more information regarding task and
