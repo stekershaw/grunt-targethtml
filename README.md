@@ -26,7 +26,7 @@ grunt.initConfig({
   targethtml: {
     dist: {
       files: {
-        'dist/index.html': 'src/public/index.html'
+        'dist/public/index.html': 'src/public/index.html'
       }
     }
   },
@@ -57,19 +57,17 @@ Use conditional statements in your html based on grunt targets like:
 <!--(if target dist)>
   <script src="release.js"></script>
 <!(endif)-->
-
-
-<!--(if target foo)><!-->
-  <link rel="stylesheet" href="foo.css">
-<!--<!(endif)-->
-
-<!--(if target bar)>
-  <link rel="stylesheet" href="bar.css">
-<!(endif)-->
 ```
 
 Note, that `dist` section is commented out - during development you are working with `dev` set of assets.
 During processing `targethtml:dist`, comment tags defining `dist` section gets removed (section become uncommented) and any other sections (other than `dist`) gets removed completly.
+
+Resulting HTML code
+```html
+  <link rel="stylesheet" href="release.css">
+
+  <script src="release.js"></script>
+```
 
 You could use the [if...] notation like we're used from the [if lt IE 9], but ironically that fails in IE.
 
