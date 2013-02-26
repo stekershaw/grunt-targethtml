@@ -6,59 +6,43 @@
  * Licensed under the MIT license.
  */
 
+'use strict';
+
 module.exports = function(grunt) {
 
-    // Please see the grunt documentation for more information regarding task and
-    // helper creation: https://github.com/cowboy/grunt/blob/master/docs/toc.md
+  grunt.registerMultiTask('targethtml', 'Produces html-output depending on grunt release version', function() {
 
-    // ==========================================================================
-    // TASKS
-    // ==========================================================================
+    // The source files to be processed. The "nonull" option is used
+    // to retain invalid files/patterns so they can be warned about.
+    var files = grunt.file.expand({ nonull:true }, this.files[0].src);
 
-    grunt.registerMultiTask('targethtml', 'Produces html-output depending on grunt release version', function() {
-        if (!this.data) { return false; }
-        grunt.helper('targethtml', this.target, this.data );
+    // Warn if a source file/pattern was invalid.
+    var invalidSrc = files.some(function(filepath) {
+      if (!grunt.file.exists(filepath)) {
+        grunt.log.error('Source file "' + filepath + '" not found.');
+        return true;
+      }
+    });
+    if (invalidSrc) { return false; }
+
+    this.files.forEach(function(file) {
+
+      var src = tile.src[ 0 ];
+      var dest= file.dest;
+
+      var contents = grunt.file.read(filepath);
+
+       if (contents) {
+        contents = contents.replace(new RegExp('<!--[\\[\\(]if target ' + this.target + '[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->', 'g'), '$2');
+        contents = contents.replace(new RegExp('^[\\s\\t]+<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'gm'), '');
+        contents = contents.replace(new RegExp('<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'g'), '');
+        grunt.file.write(dest, contents);
+      }
+
+      grunt.log.ok('File "' + dest + '" created.');
+
     });
 
-    // ==========================================================================
-    // HELPERS
-    // ==========================================================================
-
-    grunt.registerHelper('targethtml', function(target, file) {
-        var f = grunt.file;
-
-        if ( ! Array.isArray( file.src ) ) {
-            file.src = [ file.src ];
-        }
-
-        if ( ! Array.isArray( file.out ) ) {
-            file.out = [ file.out ];
-        }
-
-        for ( var i = 0; i < file.src.length; i++ ){
-
-            var src = file.src[ i ];
-            var out = file.out[ i ];
-
-            var contents = f.read(src);
-            if(contents) {
-                contents = contents.replace(new RegExp('<!--[\\[\\(]if target ' + target + '[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->', 'g'), '$2');
-                contents = contents.replace(new RegExp('^[\\s\\t]+<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'gm'), '');
-                contents = contents.replace(new RegExp('<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'g'), '');
-
-                if ( file.dist ) {
-
-                    f.write( file.dist, contents );
-                    console.log('Created ' + file.dist, target);
-                    return;
-
-                } else {
-
-                    f.write(out, contents);
-                    console.log('Created ' + out, target);
-                }
-            }
-        }
-    });
-
+    if (this.errorCount) { return false; }
+  });
 };
