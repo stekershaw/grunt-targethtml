@@ -12,28 +12,21 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('targethtml', 'Produces html-output depending on grunt release version', function() {
 
-    // The source files to be processed. The "nonull" option is used
-    // to retain invalid files/patterns so they can be warned about.
-    var files = grunt.file.expand({ nonull:true }, this.files[0].src);
-
-    // Warn if a source file/pattern was invalid.
-    var invalidSrc = files.some(function(filepath) {
-      if (!grunt.file.exists(filepath)) {
-        grunt.log.error('Source file "' + filepath + '" not found.');
-        return true;
-      }
-    });
-    if (invalidSrc) { return false; }
+    var target = this.target;
 
     this.files.forEach(function(file) {
 
-      var src = tile.src[ 0 ];
+      var src = file.src[ 0 ];
       var dest= file.dest;
 
-      var contents = grunt.file.read(filepath);
+      if (!grunt.file.exists(src)) {
+        grunt.log.error('Source file "' + src + '" not found.');
+      }
 
-       if (contents) {
-        contents = contents.replace(new RegExp('<!--[\\[\\(]if target ' + this.target + '[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->', 'g'), '$2');
+      var contents = grunt.file.read(src);
+
+      if (contents) {
+        contents = contents.replace(new RegExp('<!--[\\[\\(]if target ' + target + '[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->', 'g'), '$2');
         contents = contents.replace(new RegExp('^[\\s\\t]+<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'gm'), '');
         contents = contents.replace(new RegExp('<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'g'), '');
         grunt.file.write(dest, contents);
