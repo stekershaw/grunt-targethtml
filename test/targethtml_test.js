@@ -2,25 +2,23 @@
 
 var grunt = require('grunt');
 
-exports.targethtml = {
-  main: function(test) {
-    var expected, result, resultSecond;
+exports.targethtml = function(test){
 
-    test.expect(3);
+  var expected, result;
 
-    result = grunt.file.read('tmp/dev.html');
-    expected = grunt.file.read('test/expected/dev.html');
+  test.expect(3);
 
-    test.equal(result, expected, 'should process :dev target');
+  expected = grunt.file.read('test/expected/dev.html');
+  result = grunt.file.read('tmp/dev.html');
+  test.equal(result, expected, 'should process :dev target');
 
-    result = grunt.file.read('tmp/dist.html');
-    resultSecond = grunt.file.read('tmp/second.html');
+  expected = grunt.file.read('test/expected/dist.html');
+  result = grunt.file.read('tmp/dist.html');
+  test.equal(result, expected, 'should process :dist target');
+  result = grunt.file.read('tmp/second.html');
+  test.equal(result, expected, 'should process a second :dist target');
 
-    expected = grunt.file.read('test/expected/dist.html');
 
-    test.equal(result, expected, 'should process :dist target');
-    test.equal(resultSecond, expected, 'should process a second :dist target');
+  test.done();
 
-    test.done();
-  }
 };
