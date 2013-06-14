@@ -12,23 +12,37 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('targethtml', 'Produces html-output depending on grunt release version', function() {
 
-    // Process src-dest files
+    var target = this.target,
+        path = require('path');
+
     this.files.forEach(function(file) {
-      var contents = grunt.file.read(file.src);
+      file.src.forEach(function(src) {
+        var dest;
 
-      if (contents) {
-        contents = contents.replace(new RegExp('<!--[\\[\\(]if target ' + this.target + '[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->', 'g'), '$2');
-        contents = contents.replace(new RegExp('^[\\s\\t]+<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'gm'), '');
-        contents = contents.replace(new RegExp('<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'g'), '');
-        grunt.file.write(file.dest, contents);
+        if (!grunt.file.exists(src)) {
+          grunt.log.error('Source file "' + src + '" not found.');
+        }
 
-        // print a success message.
-        grunt.log.ok('File "' + file.dest + '" created.');
-      }
-    }.bind(this));
+        if  (grunt.file.isDir(file.dest)) {
+          dest = file.dest + path.basename(src);
+        } else {
+          dest = file.dest;
+        }
 
-    // Fail task if errors were logged.
+        var contents = grunt.file.read(src);
+
+        if (contents) {
+          contents = contents.replace(new RegExp('<!--[\\[\\(]if target ' + target + '[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->', 'g'), '$2');
+          contents = contents.replace(new RegExp('^[\\s\\t]+<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'gm'), '');
+          contents = contents.replace(new RegExp('<!--[\\[\\(]if target .*?[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->[\r\n]*', 'g'), '');
+          grunt.file.write(dest, contents);
+        }
+
+        grunt.log.ok('File "' + dest + '" created.');
+
+        });
+    });
+
     if (this.errorCount) { return false; }
-
   });
 };

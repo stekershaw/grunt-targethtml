@@ -62,6 +62,25 @@ Use conditional statements in your html based on grunt targets like:
 Note, that `dist` section is commented out - during development you are working with `dev` set of assets.
 During processing `targethtml:dist`, comment tags defining `dist` section gets removed (section become uncommented) and any other sections (other than `dist`) gets removed completly.
 
+The plugin also allows to modify multiple files within one target:
+
+```javascript
+grunt.initConfig({
+  // ...other configs
+
+  targethtml: {
+    dist: {
+      files: {
+        'dist/public/index.html': 'src/public/index.html',
+        'dist/public/mobile.html': 'src/public/mobile.html'
+      }
+    }
+  },
+
+  // ...other configs
+});
+```
+
 Resulting HTML code
 ```html
   <link rel="stylesheet" href="release.css">
@@ -80,7 +99,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 9/7/12 - v0.1.2 - Accept round braces in if statements for IE support
 * 10/14/12 - v0.1.3 - Adjustments towards grunt file api
 * 1/3/13 - v0.2.0 - Compatility with Grunt v0.4
-* 1/29/13 - v0.2.1 - Compatility with new Grunt 0.4 file API
+* 2/25/13 - v0.2.1 - Fixed towards Grunt 0.4
 
 ## License
 Copyright (c) 2012 Ruben Stolk
