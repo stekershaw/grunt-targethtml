@@ -99,7 +99,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 9/7/12 - v0.1.2 - Accept round braces in if statements for IE support
 * 10/14/12 - v0.1.3 - Adjustments towards grunt file api
 * 1/3/13 - v0.2.0 - Compatility with Grunt v0.4
-* 2/25/13 - v0.2.1 - Fixed towards Grunt 0.4
+* 1/29/13 - v0.2.1 - Fixed towards Grunt 0.4
+* 2/26/13 - v0.2.2 - Allows to process multiple files within one target
+* 5/13/13 - v0.2.3 - Supports wildcards in files option
 
 ## License
 Copyright (c) 2012 Ruben Stolk
