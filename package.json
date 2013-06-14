@@ -1,7 +1,7 @@
 {
   "name": "grunt-targethtml",
   "description": "Produces html-output depending on grunt release version",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "homepage": "https://github.com/changer/grunt-targethtml",
   "author": {
     "name": "Ruben Stolk",

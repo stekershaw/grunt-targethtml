@@ -38,3 +38,7 @@ v0.2.3:
   changes:
     - Supports wildcards in files option
 
+v0.2.4:
+  date: Jun 15, 2013
+  changes:
+    - Curly tags
