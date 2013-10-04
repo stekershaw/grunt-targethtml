@@ -48,7 +48,7 @@ v0.2.5:
   changes:
     - Conditional support
 
-v0.2.5.1:
+v0.2.6:
   date: Oct 4, 2013
   changes:
     - Dependency fix
