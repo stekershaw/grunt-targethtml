@@ -24,6 +24,8 @@ function conditionalParser (target, expression) {
       return !conditionalParser(target, expression.argument);
     case 'Identifier':
       return target===expression.name;
+    case 'Literal':
+      return target===expression.value;
     default :
       throw new Error('Syntax not supported');
   }
