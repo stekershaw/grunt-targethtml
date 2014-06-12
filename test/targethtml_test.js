@@ -6,7 +6,7 @@ exports.targethtml = function(test){
 
   var expected, result;
 
-  test.expect(8);
+  test.expect(10);
 
   expected = grunt.file.read('test/expected/dev.html');
   result = grunt.file.read('tmp/dev.html');
@@ -37,6 +37,13 @@ exports.targethtml = function(test){
   expected = grunt.file.read('test/expected/double-quoted-literal-target.html');
   result = grunt.file.read('tmp/double-quoted-literal-target.html');
   test.equal(result, expected, 'should process :"double-quoted-literal-target" target');
+
+  expected = grunt.file.read('test/expected/fooRegex.html');
+  result = grunt.file.read('tmp/fooRegex.html');
+  test.equal(result, expected, 'should process :foo target using regex');
+  expected = grunt.file.read('test/expected/barRegex.html');
+  result = grunt.file.read('tmp/barRegex.html');
+  test.equal(result, expected, 'should process :bar target using regex');
 
   test.done();
 

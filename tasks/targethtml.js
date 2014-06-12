@@ -10,22 +10,33 @@
 
 var esprima = require('esprima');
 
-function conditionalParser (target, expression) {
+function regexParser (target, regexCandidate, regexDelimiter) {
+  var startDelimPos = regexCandidate.indexOf(regexDelimiter);
+  var endDelimPos = regexCandidate.lastIndexOf(regexDelimiter);
+  if (!(startDelimPos === 0 && endDelimPos !== -1 && endDelimPos === (regexCandidate.length - regexDelimiter.length))) {
+      return false;
+  }
+  var x = regexCandidate.substring(regexDelimiter.length, endDelimPos);
+  var regex = new RegExp(x);
+  return regex.test(target);
+}
+
+function conditionalParser (target, expression, options) {
   switch(expression.type) {
     case 'LogicalExpression':
       if (expression.operator !== '||') { // we only compare one variable so && is useless
         throw new Error('Syntax not supported - \'||\' is the only supported binary logical operator');
       }
-      return conditionalParser(target, expression.left) || conditionalParser(target, expression.right);
+      return conditionalParser(target, expression.left, options) || conditionalParser(target, expression.right, options);
     case 'UnaryExpression':
       if (expression.operator !== '!') {
         throw new Error('Syntax not supported - \'!\' is the only supported unary operator');
       }
-      return !conditionalParser(target, expression.argument);
+      return !conditionalParser(target, expression.argument, options);
     case 'Identifier':
-      return target===expression.name;
+      return options.regex.allow ? regexParser(target, expression.name, options.regex.delimiter) : target===expression.name;
     case 'Literal':
-      return target===expression.value;
+      return options.regex.allow ? regexParser(target, expression.value, options.regex.delimiter) : target===expression.value;
     default :
       throw new Error('Syntax not supported - only certain logical operators and strings allowed in target expression.');
   }
@@ -38,7 +49,11 @@ module.exports = function(grunt) {
     var target = this.target,
         path = require('path'),
         options = this.options({
-          curlyTags: {}
+          curlyTags: {},
+          regex: {
+            allow: false,
+            delimiter: '/'
+          }
         });
 
     this.files.forEach(function(file) {
@@ -60,7 +75,7 @@ module.exports = function(grunt) {
         if (contents) {
           contents = contents.replace(new RegExp('<!--[\\[\\(]if target (.*?)[\\]\\)]>(<!-->)?([\\s\\S]*?)(<!--)?<![\\[\\(]endif[\\]\\)]-->', 'g'), function(match, $1, $2, $3) {
             // check if it's really targeted
-            if (!conditionalParser(target, esprima.parse($1).body[0].expression)) {
+            if (!conditionalParser(target, esprima.parse($1).body[0].expression, options)) {
               return '';
             }
 

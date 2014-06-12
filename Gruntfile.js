@@ -59,6 +59,28 @@ module.exports = function(grunt) {
           'tmp/double-quoted-literal-target.html': 'test/fixtures/index.html',
         }
       },
+      fooRegex: {
+        options: {
+          regex: {
+            allow: true,
+            delimiter: '/'
+          }
+        },
+        files: {
+          'tmp/fooRegex.html': 'test/fixtures/index.html',
+        }
+      },
+      barRegex: {
+        options: {
+          regex: {
+            allow: true,
+            delimiter: '/'
+          }
+        },
+        files: {
+          'tmp/barRegex.html': 'test/fixtures/index.html',
+        }
+      },
       release: {
         options: {
           curlyTags: {
