@@ -11,6 +11,11 @@
 var esprima = require('esprima');
 
 function regexParser (target, regexCandidate, regexDelimiter) {
+  // test for exact match
+  if (target===regexCandidate) {
+    return true;
+  }
+  // test for regex match
   var startDelimPos = regexCandidate.indexOf(regexDelimiter);
   var endDelimPos = regexCandidate.lastIndexOf(regexDelimiter);
   if (!(startDelimPos === 0 && endDelimPos !== -1 && endDelimPos === (regexCandidate.length - regexDelimiter.length))) {
